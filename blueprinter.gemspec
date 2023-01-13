@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*", "CHANGELOG.md", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  s.required_ruby_version = '>= 2.6.9'
+  s.required_ruby_version = '>= 2.2.2'
 
   s.add_development_dependency "factory_bot", "~> 6.2"
   s.add_development_dependency "oj", "~> 3.13"
