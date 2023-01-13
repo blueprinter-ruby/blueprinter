@@ -1,0 +1,102 @@
+version: 2.1
+
+steps: &steps_spec
+  - checkout
+  - run:
+      name: Installing ruby dependencies
+      command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle
+  - run:
+      command: bundle exec rake
+  - when:
+      condition: << parameters.benchmark >>
+      steps:
+        - run:
+            command: bundle exec rake benchmarks
+
+jobs:
+  ruby-2_2:
+    parameters:
+      benchmark:
+        type: boolean
+        default: false
+    steps: *steps_spec
+    docker:
+      - image: ruby:2.2
+  ruby-2_3:
+    parameters:
+      benchmark:
+        type: boolean
+        default: true
+    steps: *steps_spec
+    docker:
+      - image: ruby:2.3
+  ruby-2_4:
+    parameters:
+      benchmark:
+        type: boolean
+        default: true
+    steps: *steps_spec
+    docker:
+      - image: ruby:2.4
+  ruby-2_5:
+    parameters:
+      benchmark:
+        type: boolean
+        default: true
+    steps: *steps_spec
+    docker:
+      - image: ruby:2.5
+  ruby-2_6:
+    parameters:
+      benchmark:
+        type: boolean
+        default: true
+    steps: *steps_spec
+    docker:
+      - image: ruby:2.6
+  ruby-2_7:
+    parameters:
+      benchmark:
+        type: boolean
+        default: true
+    steps: *steps_spec
+    docker:
+      - image: ruby:2.7
+  ruby-3_0:
+    parameters:
+      benchmark:
+        type: boolean
+        default: true
+    steps: *steps_spec
+    docker:
+      - image: ruby:3.0
+  ruby-3_1:
+    parameters:
+      benchmark:
+        type: boolean
+        default: true
+    steps: *steps_spec
+    docker:
+      - image: ruby:3.1
+  ruby-3_2:
+    parameters:
+      benchmark:
+        type: boolean
+        default: true
+    steps: *steps_spec
+    docker:
+      - image: ruby:3.2
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - ruby-2_2
+      - ruby-2_3
+      - ruby-2_4
+      - ruby-2_5
+      - ruby-2_6
+      - ruby-2_7
+      - ruby-3_0
+      - ruby-3_1
+      - ruby-3_2
