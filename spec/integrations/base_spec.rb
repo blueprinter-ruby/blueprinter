@@ -58,6 +58,20 @@ describe '::Base' do
       end
     end
 
+    context 'Given passed object is an instance of a configured array-like class' do
+      let(:blueprint) { blueprint_with_block }
+      let(:additional_object) { OpenStruct.new(obj_hash.merge(id: 2)) }
+      let(:obj) { Set.new([object_with_attributes, additional_object]) }
+
+      before do
+        Blueprinter.configure { |config| config.array_like_classes = [Set] }
+      end
+
+      it 'should return the expected array of hashes' do
+        should eq('[{"id":1,"position_and_company":"Manager at Procore"},{"id":2,"position_and_company":"Manager at Procore"}]')
+      end
+    end
+
     context 'Inside Rails project' do
       include FactoryBot::Syntax::Methods
       let(:obj) { create(:user) }
@@ -382,6 +396,36 @@ describe '::Base' do
             end
           end
         end
+      end
+
+      context 'Given passed object is an instance of a configured array-like class' do
+        let(:blueprint) do
+          Class.new(Blueprinter::Base) do
+            identifier :id
+            fields :make
+          end
+        end
+        let(:vehicle1) { create(:vehicle) }
+        let(:vehicle2) { create(:vehicle, make: 'Mediocre Car') }
+        let(:vehicle3) { create(:vehicle, make: 'Terrible Car') }
+        let(:vehicles) { [vehicle1, vehicle2, vehicle3] }
+        let(:obj) { Set.new(vehicles) }
+        let(:result) do
+          vehicles_json = vehicles.map do |vehicle|
+            "{\"id\":#{vehicle.id},\"make\":\"#{vehicle.make}\"}"
+          end.join(',')
+          "[#{vehicles_json}]"
+        end
+
+        before do
+          Vehicle.destroy_all
+          Blueprinter.configure do |config|
+            config.array_like_classes = [Set]
+          end
+        end
+        after { Vehicle.destroy_all }
+
+        it('returns the expected result') { should eq(result) }
       end
     end
   end
