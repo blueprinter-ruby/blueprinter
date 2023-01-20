@@ -405,9 +405,9 @@ describe '::Base' do
             fields :make
           end
         end
-        let(:vehicle1) { create(:vehicle) }
-        let(:vehicle2) { create(:vehicle, make: 'Mediocre Car') }
-        let(:vehicle3) { create(:vehicle, make: 'Terrible Car') }
+        let(:vehicle1) { build(:vehicle, id: 1) }
+        let(:vehicle2) { build(:vehicle, id: 2, make: 'Mediocre Car') }
+        let(:vehicle3) { build(:vehicle, id: 3, make: 'Terrible Car') }
         let(:vehicles) { [vehicle1, vehicle2, vehicle3] }
         let(:obj) { Set.new(vehicles) }
         let(:result) do
@@ -418,12 +418,10 @@ describe '::Base' do
         end
 
         before do
-          Vehicle.destroy_all
           Blueprinter.configure do |config|
             config.array_like_classes = [Set]
           end
         end
-        after { Vehicle.destroy_all }
 
         it('returns the expected result') { should eq(result) }
       end
