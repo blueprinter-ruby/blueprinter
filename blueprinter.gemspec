@@ -18,13 +18,13 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*", "CHANGELOG.md", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  s.required_ruby_version = '>= 2.7.0'
+  s.required_ruby_version = '>= 2.6.9'
 
   s.add_development_dependency "factory_bot", "~> 6.2"
   s.add_development_dependency "oj", "~> 3.13"
   s.add_development_dependency "yajl-ruby", "~> 1.4"
   s.add_development_dependency "pry", "~> 0.14"
-  s.add_development_dependency "activerecord", "~> 7.0"
+  s.add_development_dependency "activerecord", "> 5.1.2"
   s.add_development_dependency "rspec", "~> 3.12"
   s.add_development_dependency "rspec-rails", "~> 6.0"
   s.add_development_dependency "sqlite3", "~> 1.5"
