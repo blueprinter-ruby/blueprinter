@@ -2,7 +2,7 @@ name: rspec
 
 on:
   push:
-    branches: [ "master", "run-tests-in-github-actions" ]
+    branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
 
