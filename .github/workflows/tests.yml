@@ -2,7 +2,7 @@ name: rspec
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "run-tests-in-github-actions" ]
   pull_request:
     branches: [ "master" ]
 
@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        ruby-version: [2.7, 3.0, 3.1, 3.2]
+        ruby-version: [2.6, 2.6.9, 2.7, 3.0, 3.1]
 
     steps:
       - uses: actions/checkout@v3
