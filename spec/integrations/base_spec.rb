@@ -58,17 +58,26 @@ describe '::Base' do
       end
     end
 
-    context 'Given passed object is an instance of a configured array-like class' do
+    context 'Given passed object is array-like' do
       let(:blueprint) { blueprint_with_block }
       let(:additional_object) { OpenStruct.new(obj_hash.merge(id: 2)) }
       let(:obj) { Set.new([object_with_attributes, additional_object]) }
 
-      before do
-        Blueprinter.configure { |config| config.array_like_classes = [Set] }
+      context 'and is an instance of a configured array-like class' do
+        before do
+          Blueprinter.configure { |config| config.array_like_classes = [Set] }
+        end
+        after { reset_blueprinter_config! }
+
+        it 'should return the expected array of hashes' do
+          should eq('[{"id":1,"position_and_company":"Manager at Procore"},{"id":2,"position_and_company":"Manager at Procore"}]')
+        end
       end
 
-      it 'should return the expected array of hashes' do
-        should eq('[{"id":1,"position_and_company":"Manager at Procore"},{"id":2,"position_and_company":"Manager at Procore"}]')
+      context 'and is not an instance of a configured array-like class' do
+        it 'should raise an error' do
+          expect { blueprint.render(obj) }.to raise_error(NoMethodError)
+        end
       end
     end
 
