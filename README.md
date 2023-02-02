@@ -74,7 +74,7 @@ You can also configure other classes to be treated like collections. For example
 
 ```ruby
 Blueprinter.configure do |config|
-  config.array_like_classes = [Mongoid::Criteria]
+  config.custom_array_like_classes = [Mongoid::Criteria]
 end
 ```
 
@@ -82,7 +82,7 @@ Or if you wanted it to treat the `Set` class as a collection:
 
 ```ruby
 Blueprinter.configure do |config|
-  config.array_like_classes = [Set]
+  config.custom_array_like_classes = [Set]
 end
 ```
 

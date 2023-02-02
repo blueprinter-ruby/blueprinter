@@ -65,7 +65,8 @@ describe '::Base' do
 
       context 'and is an instance of a configured array-like class' do
         before do
-          Blueprinter.configure { |config| config.array_like_classes = [Set] }
+          reset_blueprinter_config!
+          Blueprinter.configure { |config| config.custom_array_like_classes = [Set] }
         end
         after { reset_blueprinter_config! }
 
@@ -427,10 +428,12 @@ describe '::Base' do
         end
 
         before do
+          reset_blueprinter_config!
           Blueprinter.configure do |config|
-            config.array_like_classes = [Set]
+            config.custom_array_like_classes = [Set]
           end
         end
+        after { reset_blueprinter_config! }
 
         it('returns the expected result') { should eq(result) }
       end
