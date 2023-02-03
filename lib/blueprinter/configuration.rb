@@ -21,15 +21,12 @@ module Blueprinter
       @custom_array_like_classes = []
     end
 
-    def standard_array_like_classes
-      @standard_array_like_classes ||= [
+    def array_like_classes
+      @array_like_classes ||= [
         Array,
         defined?(ActiveRecord::Relation) && ActiveRecord::Relation,
+        *custom_array_like_classes
       ].compact
-    end
-
-    def array_like_classes
-      @array_like_classes ||= (standard_array_like_classes + custom_array_like_classes)
     end
 
     def jsonify(blob)
