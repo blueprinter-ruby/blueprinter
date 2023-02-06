@@ -16,4 +16,4 @@ jobs:
           ruby-version: '2.6.9'
           bundler-cache: true
       - name: Rubocop
-        run: bundle exec rubocop
+        run: bundle exec rubocop --config ./.rubocop.yml
