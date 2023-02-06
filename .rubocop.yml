@@ -5,6 +5,7 @@ AllCops:
     - 'lib/generators/**/*'
     - 'tmp/**/*'
     - 'spec/**/*'
+    - 'vendor/**/*' # added by github actions
 
 Style/Documentation:
   Enabled: false
