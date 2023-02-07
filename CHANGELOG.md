@@ -1,4 +1,14 @@
-## 1.0.0  - 2023/05/01
+## 1.1.2 - 2023/02/06
+* 💅 [ENHANCEMENT] Introduce rubocop and add a Github action for it
+
+## 1.1.1 - 2023/02/06
+* 🐛 [BUGFIX] Fix accidental hard dependency requirement of yajl and oj in gemspec from a routine cleanup commit
+
+## 1.1.0 - 2023/02/02
+* 🚀 [FEATURE] Allow configuring custom array-like classes to be treated as collections when serializing.  More details can be found [here](https://github.com/blueprinter-ruby/blueprinter/pull/6). Thanks to [@toddnestor](https://github.com/toddnestor).
+* 💅 [ENHANCEMENT] Reduce object allocations in fields calculations to save some memory.  More details can be found [here](https://github.com/blueprinter-ruby/blueprinter/pull/5). Thanks to [@nametoolong](https://github.com/nametoolong).
+
+## 1.0.0  - 2023/01/05
 * 🚀 [Official Release] Released [`blueprinter-rb`](https://rubygems.org/gems/blueprinter-rb) under a new organisation. More details can be found [here](https://github.com/procore/blueprinter/issues/288).
 
 ## 0.25.3  - 2021/03/03
