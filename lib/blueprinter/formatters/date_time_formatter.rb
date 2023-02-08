@@ -13,6 +13,7 @@ module Blueprinter
       return format_datetime(value, field_format) if value.respond_to?(:strftime)
 
       raise InvalidDateTimeFormatterError, 'Cannot format invalid DateTime object' if options[:datetime_format]
+
       value
     end
 
