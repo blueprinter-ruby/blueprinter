@@ -174,17 +174,18 @@ shared_examples 'Base::render' do
   end
 
   context 'Given default_if option is invalid' do
+    before do
+      obj[:first_name] = ""
+    end
+
+    let(:result) { %({"first_name":"","id":#{obj_id}}) }
     let(:blueprint) do
       Class.new(Blueprinter::Base) do
         field :id
         field :first_name, default_if: "INVALID_EMPTY_TYPE", default: "Unknown"
       end
     end
-    it('reports a deprecation message') do
-      allow(Blueprinter::Deprecation).to receive(:report)
-      blueprint.render(obj)
-      expect(Blueprinter::Deprecation).to have_received(:report).with(match(/Invalid empty type '.*' received. Blueprinter will raise an error in the next major version./))
-    end
+    it('does not use the default value') { should eq(result) }
   end
 
   context "Given blueprint has ::field with nil value" do
@@ -257,8 +258,9 @@ shared_examples 'Base::render' do
 
   context 'Given blueprint has ::field with a conditional argument' do
     context 'Given conditional proc has deprecated two argument signature' do
-      let(:if_proc) { ->(_obj, _local_opts) { true } }
-      let(:unless_proc) { ->(_obj, _local_opts) { true } }
+      let(:result_with_first_name) do
+        %({"first_name":"Meg","id":#{obj_id}})
+      end
 
       let(:blueprint) do
         Class.new(Blueprinter::Base) do
@@ -268,11 +270,8 @@ shared_examples 'Base::render' do
         end
       end
 
-      it('reports a deprecation warning') do
-        allow(Blueprinter::Deprecation).to receive(:report)
-        blueprint.render(obj)
-        expect(Blueprinter::Deprecation).to have_received(:report).with("`:if` conditions now expects 3 arguments instead of 2.")
-        expect(Blueprinter::Deprecation).to have_received(:report).with("`:unless` conditions now expects 3 arguments instead of 2.")
+      it 'serializes the conditional field' do
+        should eq(result_with_first_name)
       end
     end
 
