@@ -257,24 +257,6 @@ shared_examples 'Base::render' do
   end
 
   context 'Given blueprint has ::field with a conditional argument' do
-    context 'Given conditional proc has deprecated two argument signature' do
-      let(:result_with_first_name) do
-        %({"first_name":"Meg","id":#{obj_id}})
-      end
-
-      let(:blueprint) do
-        Class.new(Blueprinter::Base) do
-          field :id
-          field :first_name, if: ->(_obj, _local_opts) { true }
-          field :last_name, unless: ->(_obj, _local_opts) { true }
-        end
-      end
-
-      it 'serializes the conditional field' do
-        should eq(result_with_first_name)
-      end
-    end
-
     context 'Given conditional proc has three argument signature' do
       variants = %i[proc method].product([true, false])
 
