@@ -1,3 +1,6 @@
+### [UPDATE] - All changes from the fork have been [merged to the upstream](https://github.com/procore-oss/blueprinter/pull/327). This repo has been archived in favour of the upstream with the recent movement of the project to an external [organisation](https://github.com/procore-oss) and addition of external contributor(s) to ensure the project remains alive.
+
+
 [![Test](https://github.com/procore-oss/blueprinter/actions/workflows/test.yaml/badge.svg?branch=master)](https://github.com/procore-oss/blueprinter/actions/workflows/test.yaml)
 [![Gem Version](https://badge.fury.io/rb/blueprinter.svg)](https://badge.fury.io/rb/blueprinter)
 [![Gitter chat](https://badges.gitter.im/procore/blueprinter.svg)](https://gitter.im/blueprinter-gem/community)
